@@ -1,126 +1,88 @@
 import {
-  AppstoreOutlined,
+  HomeOutlined,
   ProfileOutlined,
-  ScheduleOutlined,
   TableOutlined,
-  ThunderboltOutlined,
+  UnorderedListOutlined,
+  UserAddOutlined,
 } from "@ant-design/icons";
 import { MenuProps } from "antd";
 import Link from "next/link";
 import { USER_ROLE } from "./role";
 
-export const sidebarItems = (role: string) => {
+export const sidebarItems = (data: string) => {
+  const role = data === "ADMIN" ? "admin" : "performer";
+
   const defaultSidebarItems: MenuProps["items"] = [
     {
-      label: "Profile",
-      key: "profile",
-      icon: <ProfileOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}`}>Account Profile</Link>,
-          key: `/${role}/profile`,
-        },
-      ],
+      label: <Link href={role}>Home</Link>,
+      key: "home",
+      icon: <HomeOutlined />,
     },
   ];
 
   const adminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
-      label: "User Management",
-      key: "user-management",
+      label: "Quizzes",
+      key: "quizzes",
       icon: <TableOutlined />,
       children: [
         {
-          label: <Link href={`/${role}/users`}>Users List</Link>,
-          key: `/${role}/users`,
+          label: <Link href={`/${role}/quizzes`}>Quiz List</Link>,
+          key: `/${role}/quizzes`,
         },
         {
-          label: <Link href={`/${role}/users/create`}>Create User</Link>,
-          key: `/${role}/academic/department`,
-        },
-        {
-          label: <Link href={`/${role}/users/edit`}>Edit User</Link>,
-          key: `/${role}/academic/semester`,
+          label: <Link href={`/${role}/quizzes/create`}>Create Quiz</Link>,
+          key: `/${role}/quizzes/create`,
         },
       ],
     },
     {
-      label: "Service Management",
-      key: "service-management",
-      icon: <AppstoreOutlined />,
+      label: "Categories",
+      key: "categories",
+      icon: <TableOutlined />,
       children: [
         {
-          label: <Link href={`/${role}/services`}>Services List</Link>,
-          key: `/${role}/services`,
+          label: <Link href={`/${role}/categories`}>Category List</Link>,
+          key: `/${role}/categories`,
         },
         {
-          label: <Link href={`/${role}/services/create`}>Create Service</Link>,
-          key: `/${role}/services/create`,
-        },
-        {
-          label: <Link href={`/${role}/services/edit`}>Edit Service</Link>,
-          key: `/${role}/services/edit`,
+          label: (
+            <Link href={`/${role}/categories/create`}>Create Categories</Link>
+          ),
+          key: `/${role}/categories/create`,
         },
       ],
     },
     {
-      label: "Booking Management",
-      key: "booking-management",
-      icon: <AppstoreOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}/bookings`}>Bookings List</Link>,
-          key: `/${role}/services`,
-        },
-        {
-          label: <Link href={`/${role}/booking/edit`}>Edit Booking</Link>,
-          key: `/${role}/booking/edit`,
-        },
-      ],
+      label: <Link href={`${role}/create`}>Create Admin</Link>,
+      key: "create-admin",
+      icon: <UserAddOutlined />,
     },
     {
-      label: "Content Management",
-      key: "content-management",
-      icon: <AppstoreOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}/content`}>Content List</Link>,
-          key: `/${role}/content`,
-        },
-        {
-          label: <Link href={`/${role}/content/create`}>Create Content</Link>,
-          key: `/${role}/content/create`,
-        },
-        {
-          label: <Link href={`/${role}/content/edit`}>Edit Content</Link>,
-          key: `/${role}/content/edit`,
-        },
-      ],
+      label: <Link href={`/leaderboard`}>Leaderboard</Link>,
+      key: "leaderboard",
+      icon: <ProfileOutlined />,
     },
   ];
 
   const performerSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
+
     {
-      label: <Link href={`/${role}/services`}>Services</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/services`,
+      label: <Link href={`/${role}/start-quiz`}>Start Quiz</Link>,
+      key: "start-quiz",
+      icon: <UnorderedListOutlined />,
     },
     {
-      label: <Link href={`/${role}/bookings`}>Service Booking</Link>,
-      icon: <ScheduleOutlined />,
-      key: `/${role}/bookings`,
-    },
-    {
-      label: <Link href={`/${role}/bookings/history`}>Booking History</Link>,
-      icon: <ThunderboltOutlined />,
-      key: `/${role}/bookings/history`,
+      label: <Link href={`/leaderboard`}>Leaderboard</Link>,
+      key: "leaderboard",
+      icon: <ProfileOutlined />,
     },
   ];
 
-  if (role === USER_ROLE.ADMIN) return adminSidebarItems;
-  else if (role === USER_ROLE.PERFORMER) return performerSidebarItems;
+  if (data === USER_ROLE.ADMIN) return adminSidebarItems;
+  else if (data === USER_ROLE.PERFORMER) return performerSidebarItems;
   else {
     return defaultSidebarItems;
   }
