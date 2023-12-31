@@ -14,7 +14,7 @@ export const sidebarItems = (data: string) => {
 
   const defaultSidebarItems: MenuProps["items"] = [
     {
-      label: <Link href={role}>Home</Link>,
+      label: <Link href={"/dashboard"}>Home</Link>,
       key: "home",
       icon: <HomeOutlined />,
     },

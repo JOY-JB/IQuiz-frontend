@@ -4,9 +4,11 @@ import Form from "@/components/forms/Form";
 import FormInput from "@/components/forms/FormInput";
 import { useUserLoginMutation } from "@/redux/api/authApi";
 import { loginSchema } from "@/schemas/login";
+import { storeUserInfo } from "@/services/auth.service";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
 import loginImage from "../../assets/login.png";
@@ -25,14 +27,12 @@ const LoginPageComponent = () => {
     try {
       const res = await userLogin(data).unwrap();
 
-      console.log(res);
+      if (res?.accessToken) {
+        router.push("/dashboard");
+        message.success("Logged in successfully!!");
+      }
 
-      // if (res?.accessToken) {
-      //   router.push("/profile");
-      //   message.success("Logged in successfully!!");
-      // }
-
-      // storeUserInfo({ accessToken: res?.accessToken });
+      storeUserInfo({ accessToken: res?.accessToken });
     } catch (error) {
       console.error(error);
     }
@@ -91,6 +91,9 @@ const LoginPageComponent = () => {
               Login
             </Button>
           </Form>
+          <p style={{ marginTop: "35px", textAlign: "center" }}>
+            Not registered yet ? <Link href="/register">registration here</Link>
+          </p>
         </div>
       </Col>
     </Row>
