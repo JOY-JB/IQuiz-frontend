@@ -28,6 +28,19 @@ export const questionsApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.questions],
     }),
 
+    getAllQuestionsForAdmin: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: `${QUESTIONS_URL}/admin`,
+        method: "GET",
+        params: arg,
+      }),
+      transformResponse: (response: IQuestions[], meta: IMeta) => ({
+        questions: response,
+        meta,
+      }),
+      providesTags: [tagTypes.questions],
+    }),
+
     getQuestionsByCategory: build.query({
       query: ({
         categoryId,
@@ -81,4 +94,5 @@ export const {
   useGetQuestionsByIdQuery,
   useUpdateQuestionsMutation,
   useDeleteQuestionsMutation,
+  useGetAllQuestionsForAdminQuery,
 } = questionsApi;

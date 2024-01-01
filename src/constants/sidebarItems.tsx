@@ -16,7 +16,7 @@ export const sidebarItems = (data: string) => {
 
   const defaultSidebarItems: MenuProps["items"] = [
     {
-      label: <Link href={"/dashboard"}>Home</Link>,
+      label: <Link href={"/"}>Home</Link>,
       key: "home",
       icon: <HomeOutlined />,
     },
@@ -25,36 +25,14 @@ export const sidebarItems = (data: string) => {
   const adminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
-      label: "Quizzes",
+      label: <Link href={`/${role}/quizzes`}>Quizzes</Link>,
       key: "quizzes",
       icon: <TableOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}/quizzes`}>Quiz List</Link>,
-          key: `/${role}/quizzes`,
-        },
-        {
-          label: <Link href={`/${role}/quizzes/create`}>Create Quiz</Link>,
-          key: `/${role}/quizzes/create`,
-        },
-      ],
     },
     {
-      label: "Categories",
+      label: <Link href={`/${role}/categories`}>Categories</Link>,
       key: "categories",
       icon: <TableOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}/categories`}>Category List</Link>,
-          key: `/${role}/categories`,
-        },
-        {
-          label: (
-            <Link href={`/${role}/categories/create`}>Create Categories</Link>
-          ),
-          key: `/${role}/categories/create`,
-        },
-      ],
     },
     {
       label: <Link href={`${role}/users`}>User List</Link>,
