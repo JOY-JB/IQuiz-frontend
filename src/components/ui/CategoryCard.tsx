@@ -5,6 +5,7 @@ import Link from "next/link";
 
 const CategoryCard = ({ title, description, questions, id }: IQuizCategory) => {
   const numberOfQuestions = questions ? questions.length : 0;
+  const isButtonDisabled = numberOfQuestions < 1;
 
   return (
     <Card
@@ -48,11 +49,12 @@ const CategoryCard = ({ title, description, questions, id }: IQuizCategory) => {
             {numberOfQuestions > 10 ? 10 : numberOfQuestions}
           </span>
         </span>
-        <Link href={`/start-quiz/${id}`}>
+        <Link href={isButtonDisabled ? "#" : `/start-quiz/${id}`}>
           <Button
             type="primary"
             icon={<PlayCircleOutlined />}
             style={{ borderRadius: 8 }}
+            disabled={isButtonDisabled}
           >
             Start
           </Button>
