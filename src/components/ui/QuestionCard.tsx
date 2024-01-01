@@ -2,12 +2,19 @@
 
 import { IQuestions } from "@/types";
 import { QuestionCircleOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Row, Typography } from "antd";
+import { Button, Card, Col, Row, Spin, Typography } from "antd";
 import { useEffect, useState } from "react";
+import QuizResult from "./QuizResult";
 
 const { Title } = Typography;
 
-const QuizComponent = ({ questions }: { questions: IQuestions[] }) => {
+const QuizComponent = ({
+  questions,
+  isLoading,
+}: {
+  questions: IQuestions[];
+  isLoading: boolean;
+}) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [chosenAnswers, setChosenAnswers] = useState<string[]>([]);
   const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
@@ -70,8 +77,28 @@ const QuizComponent = ({ questions }: { questions: IQuestions[] }) => {
 
   const currentQuestion = questions[currentQuestionIndex];
 
-  if (!currentQuestion) {
-    return <div>Quiz Completed!</div>;
+  if (!currentQuestion && !isLoading) {
+    return (
+      <QuizResult
+        correctAnswers={correctAnswersCount}
+        totalQuestions={questions.length}
+      />
+    );
+  } else if (!currentQuestion && isLoading) {
+    return (
+      <div
+        style={{
+          height: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Spin size="large">
+          <div className="content" />
+        </Spin>
+      </div>
+    );
   }
 
   return (
