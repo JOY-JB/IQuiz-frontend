@@ -74,4 +74,11 @@ export const questionsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const {} = questionsApi;
+export const {
+  useCreateQuestionsMutation,
+  useGetAllQuestionsQuery,
+  useGetQuestionsByCategoryQuery,
+  useGetQuestionsByIdQuery,
+  useUpdateQuestionsMutation,
+  useDeleteQuestionsMutation,
+} = questionsApi;
