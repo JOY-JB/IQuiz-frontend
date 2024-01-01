@@ -1,3 +1,4 @@
+import { IMeta, IUser } from "@/types";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
@@ -21,6 +22,32 @@ export const userApi = baseApi.injectEndpoints({
         data: data,
       }),
       invalidatesTags: [tagTypes.user],
+    }),
+
+    getAllAdmins: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: `${USER_URL}/admins`,
+        method: "GET",
+        params: arg,
+      }),
+      transformResponse: (response: IUser[], meta: IMeta) => ({
+        admins: response,
+        meta,
+      }),
+      providesTags: [tagTypes.user],
+    }),
+
+    getAllPerformers: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: `${USER_URL}/performers`,
+        method: "GET",
+        params: arg,
+      }),
+      transformResponse: (response: IUser[], meta: IMeta) => ({
+        performers: response,
+        meta,
+      }),
+      providesTags: [tagTypes.user],
     }),
   }),
 });
