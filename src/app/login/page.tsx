@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "IQuiz | login",
-  description: "Photographer booking System by Joy Barua",
+  description: "Quiz Management Application by Joy Barua",
 };
 
 const LoginPage = () => {

@@ -1,6 +1,7 @@
 import { authKey } from "@/constants/storageKey";
 import { ResponseErrorType, ResponseSuccessType } from "@/types";
 import { getFromLocalStorage } from "@/utils/local-storage";
+import { message } from "antd";
 import axios from "axios";
 
 const instance = axios.create();
@@ -44,6 +45,7 @@ instance.interceptors.response.use(
       message: error?.response?.data?.message || "Something went wrong!!!",
       errorMessages: error?.response?.data?.message,
     };
+    message.error(error?.response?.data?.message || "Something went wrong!!!");
 
     return responseObject;
   }

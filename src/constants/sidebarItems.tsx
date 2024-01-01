@@ -1,9 +1,11 @@
 import {
+  FileProtectOutlined,
   HomeOutlined,
   ProfileOutlined,
   TableOutlined,
   UnorderedListOutlined,
   UserAddOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { MenuProps } from "antd";
 import Link from "next/link";
@@ -55,6 +57,11 @@ export const sidebarItems = (data: string) => {
       ],
     },
     {
+      label: <Link href={`${role}/users`}>User List</Link>,
+      key: "user-list",
+      icon: <UserOutlined />,
+    },
+    {
       label: <Link href={`${role}/create`}>Create Admin</Link>,
       key: "create-admin",
       icon: <UserAddOutlined />,
@@ -73,6 +80,11 @@ export const sidebarItems = (data: string) => {
       label: <Link href={`/${role}/start-quiz`}>Start Quiz</Link>,
       key: "start-quiz",
       icon: <UnorderedListOutlined />,
+    },
+    {
+      label: <Link href={`/${role}/my-performance`}>My Performance</Link>,
+      key: "my-performance",
+      icon: <FileProtectOutlined />,
     },
     {
       label: <Link href={`/leaderboard`}>Leaderboard</Link>,
