@@ -40,6 +40,15 @@ export interface IQuizCategory {
   user?: IUser;
 }
 
+export interface IQuestions {
+  id: string;
+  text: string;
+  options: string[];
+  correctOption: string[] | string;
+  quizCategoryId: string;
+  quizzes?: IQuizCategory;
+}
+
 export enum UserRole {
   PERFORMER = "PERFORMER",
   ADMIN = "ADMIN",

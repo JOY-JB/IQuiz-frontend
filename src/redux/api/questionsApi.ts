@@ -4,7 +4,7 @@ import { baseApi } from "./baseApi";
 
 const QUIZ_CATEGORY_URL = "/quiz-categories";
 
-export const quizCategoryApi = baseApi.injectEndpoints({
+export const serviceApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     createQuizCategory: build.mutation({
       query: (data) => ({
@@ -61,4 +61,4 @@ export const {
   useGetCategoryByIdQuery,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
-} = quizCategoryApi;
+} = serviceApi;
