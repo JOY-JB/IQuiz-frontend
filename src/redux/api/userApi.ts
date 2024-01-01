@@ -52,4 +52,9 @@ export const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateAdminMutation, useCreatePerformerMutation } = userApi;
+export const {
+  useCreateAdminMutation,
+  useCreatePerformerMutation,
+  useGetAllAdminsQuery,
+  useGetAllPerformersQuery,
+} = userApi;

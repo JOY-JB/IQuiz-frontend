@@ -27,6 +27,8 @@ export interface IUser {
   email: string;
   password?: string;
   role: UserRole;
+  quizzes: IQuizCategory[];
+  quizAttempts: IQuizAttempt[];
 }
 
 export interface IQuizCategory {
@@ -47,6 +49,23 @@ export interface IQuestions {
   correctOption: string[] | string;
   quizCategoryId: string;
   quizzes?: IQuizCategory;
+}
+
+export interface IQuizAttempt {
+  id: string;
+  userId: string;
+  quizCategoryId: string;
+  score: number;
+  startedAt: string;
+  completedAt: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IPerformerStats {
+  id: string;
+  totalAttempts: number;
+  totalScore: number;
 }
 
 export enum UserRole {

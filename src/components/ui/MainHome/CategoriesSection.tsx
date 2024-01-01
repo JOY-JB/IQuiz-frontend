@@ -1,166 +1,95 @@
+"uce client";
+
 import Loading from "@/app/loading";
-import { useGetPhotographersQuery } from "@/redux/api/photographerApi";
-import { Card, Carousel, Layout, Typography } from "antd";
-import Paragraph from "antd/es/typography/Paragraph";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import jubayer from "../../../../public/images/jubayer.jpeg";
-import prito from "../../../../public/images/prito.jpeg";
-import samim from "../../../../public/images/samim-reza.jpeg";
-import santo from "../../../../public/images/santo.jpeg";
+import { useGetAllPerformersQuery } from "@/redux/api/userApi";
+import { calculateSinglePerformerStats } from "@/utils";
+import { Card, Layout, Progress, Typography } from "antd";
 
 const { Content } = Layout;
-const { Title, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
-const CategorySection = () => {
-  const { data, isLoading } = useGetPhotographersQuery({});
-  const [slidesToShow, setSlidesToShow] = useState(4);
-  const [carouselMargin, setCarouselMargin] = useState("0 10px");
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 768) {
-        setSlidesToShow(1);
-        setCarouselMargin("auto");
-      } else if (window.innerWidth <= 992) {
-        setSlidesToShow(2);
-        setCarouselMargin("auto");
-      } else {
-        setSlidesToShow(4);
-        setCarouselMargin("0 10px");
-      }
-    };
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+const CategoriesSection = () => {
+  const { data, isLoading } = useGetAllPerformersQuery({});
 
   if (isLoading) {
     return <Loading />;
   }
-  const photographerData = data?.photographers
-    .slice()
-    .sort(
-      (a, b) =>
-        new Date(a?.createdAt as string).getTime() -
-        new Date(b?.createdAt as string).getTime()
-    )
-    .slice(0, 4);
+  const performersData = data?.performers;
+  const sortedPerformers = performersData?.slice().sort((a, b) => {
+    const scoreA = calculateSinglePerformerStats(a)?.totalScore || 0;
+    const scoreB = calculateSinglePerformerStats(b)?.totalScore || 0;
+    return scoreB - scoreA;
+  });
 
   return (
     <Layout
       style={{
         display: "flex",
-        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        maxWidth: "1280px",
-        marginRight: "auto",
-        marginLeft: "auto",
+        margin: "10rem 0",
       }}
     >
-      <Content
-        style={{
-          maxWidth: "100%",
-          padding: "0 20px",
-        }}
-      >
-        <div style={{ textAlign: "center", marginBottom: "30px" }}>
-          <Title>Meet Our Top Photographers</Title>
-          <Text type="secondary" italic style={{ fontSize: "1.1rem" }}>
-            Passionate professionals behind the camera.
-          </Text>
+      <Content style={{ maxWidth: "1480px" }}>
+        <div style={{ textAlign: "center" }}>
+          <Title>Our Top Performers</Title>
         </div>
-        <Carousel
-          autoplay
-          dots={{ className: "carousel-dots" }}
-          slidesToShow={slidesToShow}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
         >
-          {photographerData &&
-            photographerData.map((photographer, index) => (
-              <div key={index}>
+          {sortedPerformers &&
+            sortedPerformers.slice(0, 4).map((performer, index) => {
+              const { totalAttempts, totalScore } =
+                calculateSinglePerformerStats(performer);
+              return (
                 <Card
-                  style={{
-                    height: "520px",
-                    margin: carouselMargin,
-                    width: 300,
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                  cover={
+                  key={index}
+                  style={{ width: 300, margin: "16px", position: "relative" }}
+                >
+                  <Card.Meta
+                    title={performer.name}
+                    description={<Paragraph>{performer.email}</Paragraph>}
+                  />
+                  <div
+                    style={{
+                      marginTop: "16px",
+                    }}
+                  >
                     <div
                       style={{
                         display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        padding: "10px",
-                        height: "300px",
+                        justifyContent: "space-between",
                       }}
                     >
-                      {index === 0 ? (
-                        <Image
-                          alt={photographer.name}
-                          src={jubayer}
-                          width={300}
-                          height={280}
-                        />
-                      ) : index === 1 ? (
-                        <Image
-                          alt={photographer.name}
-                          src={prito}
-                          width={300}
-                          height={280}
-                        />
-                      ) : index === 2 ? (
-                        <Image
-                          alt={photographer.name}
-                          src={samim}
-                          width={300}
-                          height={280}
-                        />
-                      ) : index === 3 ? (
-                        <Image
-                          alt={photographer.name}
-                          src={santo}
-                          width={300}
-                          height={280}
-                        />
-                      ) : photographer.profileImg ? (
-                        <Image
-                          alt={photographer.name}
-                          src={photographer.profileImg}
-                        />
-                      ) : null}
+                      <div style={{ marginBottom: "8px" }}>
+                        <strong>Score:</strong> {totalScore}
+                      </div>
+                      <div style={{ marginBottom: "8px" }}>
+                        <strong>Total Attempts:</strong> {totalAttempts}
+                      </div>
                     </div>
-                  }
-                  hoverable
-                >
-                  <Card.Meta
-                    title={<Title level={4}>{photographer.name}</Title>}
-                    description={
-                      <Paragraph italic>{photographer.email}</Paragraph>
-                    }
-                  />
-                  <Text style={{ fontSize: "1rem" }}>{photographer.bio}</Text>
+
+                    <Progress
+                      percent={
+                        ((totalScore ? totalScore : 0) /
+                          (totalAttempts ? totalAttempts : 0)) *
+                        10
+                      }
+                      status="active"
+                      showInfo={false}
+                    />
+                  </div>
                 </Card>
-              </div>
-            ))}
-        </Carousel>
+              );
+            })}
+        </div>
       </Content>
-      <style jsx>
-        {`
-          .carousel-dots {
-            bottom: 0;
-          }
-        `}
-      </style>
     </Layout>
   );
 };
 
-export default CategorySection;
+export default CategoriesSection;
