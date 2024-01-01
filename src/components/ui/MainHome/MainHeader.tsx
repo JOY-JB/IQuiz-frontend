@@ -33,6 +33,10 @@ const MainHeader = () => {
       key: "home",
     },
     {
+      label: <Link href={"/dashboard"}>Dashboard</Link>,
+      key: "dashboard",
+    },
+    {
       label: <Link href={"/start-quiz"}>Start Quiz</Link>,
       key: "start-quiz",
     },
@@ -47,14 +51,6 @@ const MainHeader = () => {
   ];
 
   const avatarItems: MenuProps["items"] = [
-    {
-      label: (
-        <Link href={"/dashboard"}>
-          <Button type="text">Dashboard</Button>
-        </Link>
-      ),
-      key: "dashboard",
-    },
     {
       key: "0",
       label: (
@@ -116,13 +112,7 @@ const MainHeader = () => {
               level={5}
               style={{ margin: "auto 8px" }}
             >
-              {role === "SUPER_ADMIN"
-                ? "Super Admin"
-                : role === "ADMIN"
-                ? "Admin"
-                : role === "PHOTOGRAPHER"
-                ? "Photographer"
-                : "User"}
+              {role === "ADMIN" ? "Admin" : "User"}
             </Title>
             <Dropdown
               menu={{ items: avatarItems }}

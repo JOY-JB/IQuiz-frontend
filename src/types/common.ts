@@ -40,6 +40,8 @@ export interface IQuizCategory {
   createdAt: string;
   updatedAt: string;
   user?: IUser;
+  questions?: IQuestions[];
+  QuizAttempts?: IQuizAttempt[];
 }
 
 export interface IQuestions {

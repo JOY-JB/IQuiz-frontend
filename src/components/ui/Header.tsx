@@ -43,13 +43,7 @@ const Header = () => {
     >
       <Row style={{ height: "100%" }} align={"middle"} justify={"end"}>
         <Title level={5} style={{ margin: "auto 8px" }}>
-          {role === "SUPER_ADMIN"
-            ? "Super Admin"
-            : role === "ADMIN"
-            ? "Admin"
-            : role === "PHOTOGRAPHER"
-            ? "Photographer"
-            : "User"}
+          {role === "ADMIN" ? "Admin" : "User"}
         </Title>
         <Dropdown menu={{ items }} placement="bottomRight" arrow>
           <Space wrap size={16}>
