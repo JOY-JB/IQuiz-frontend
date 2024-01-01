@@ -1,64 +1,77 @@
-import { IMeta, IQuizCategory } from "@/types";
+import { IMeta, IQuestions } from "@/types";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
-const QUIZ_CATEGORY_URL = "/quiz-categories";
+const QUESTIONS_URL = "/questions";
 
-export const serviceApi = baseApi.injectEndpoints({
+export const questionsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    createQuizCategory: build.mutation({
+    createQuestions: build.mutation({
       query: (data) => ({
-        url: QUIZ_CATEGORY_URL,
+        url: QUESTIONS_URL,
         method: "POST",
         data: data,
       }),
-      invalidatesTags: [tagTypes.quizCategory],
+      invalidatesTags: [tagTypes.questions],
     }),
 
-    getAllQuizCategory: build.query({
+    getAllQuestions: build.query({
       query: (arg: Record<string, any>) => ({
-        url: QUIZ_CATEGORY_URL,
+        url: QUESTIONS_URL,
         method: "GET",
         params: arg,
       }),
-      transformResponse: (response: IQuizCategory[], meta: IMeta) => ({
-        quizCategories: response,
+      transformResponse: (response: IQuestions[], meta: IMeta) => ({
+        questions: response,
         meta,
       }),
-      providesTags: [tagTypes.quizCategory],
+      providesTags: [tagTypes.questions],
     }),
 
-    getCategoryById: build.query({
+    getQuestionsByCategory: build.query({
+      query: ({
+        categoryId,
+        arg,
+      }: {
+        categoryId: string;
+        arg: Record<string, any>;
+      }) => ({
+        url: `${QUESTIONS_URL}/category/${categoryId}`,
+        method: "GET",
+        params: arg,
+      }),
+      transformResponse: (response: IQuestions[], meta: IMeta) => ({
+        services: response,
+        meta,
+      }),
+      providesTags: [tagTypes.questions],
+    }),
+
+    getQuestionsById: build.query({
       query: (id: string) => ({
-        url: `${QUIZ_CATEGORY_URL}/${id}`,
+        url: `${QUESTIONS_URL}/${id}`,
         method: "GET",
       }),
-      providesTags: [tagTypes.quizCategory],
+      providesTags: [tagTypes.questions],
     }),
 
-    updateCategory: build.mutation({
+    updateQuestions: build.mutation({
       query: (data) => ({
-        url: `${QUIZ_CATEGORY_URL}/${data.id}`,
+        url: `${QUESTIONS_URL}/${data.id}`,
         method: "PATCH",
         data: data.body,
       }),
-      invalidatesTags: [tagTypes.quizCategory],
+      invalidatesTags: [tagTypes.questions],
     }),
 
-    deleteCategory: build.mutation({
+    deleteQuestions: build.mutation({
       query: (id) => ({
-        url: `${QUIZ_CATEGORY_URL}/${id}`,
+        url: `${QUESTIONS_URL}/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [tagTypes.quizCategory],
+      invalidatesTags: [tagTypes.questions],
     }),
   }),
 });
 
-export const {
-  useCreateQuizCategoryMutation,
-  useGetAllQuizCategoryQuery,
-  useGetCategoryByIdQuery,
-  useUpdateCategoryMutation,
-  useDeleteCategoryMutation,
-} = serviceApi;
+export const {} = questionsApi;
