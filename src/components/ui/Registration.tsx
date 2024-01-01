@@ -128,7 +128,8 @@ const PerformerRegistrationPageComponent = () => {
           </Form>
 
           <p style={{ marginTop: "35px", textAlign: "center" }}>
-            Already registered ? <Link href="/login">Login here</Link>
+            Already registered ? <Link href="/login">Login here</Link> or go to{" "}
+            <Link href="/">Home</Link>
           </p>
         </div>
       </Col>
