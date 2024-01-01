@@ -3,10 +3,10 @@
 import { Layout } from "antd";
 
 import AboutUsSection from "./MainHome/AboutUs";
-import CategorySection from "./MainHome/CategoriesSection";
 import AppFooter from "./MainHome/Footer";
 import HeroSection from "./MainHome/HeroSection";
 import MainHeader from "./MainHome/MainHeader";
+import TopPerformerSection from "./MainHome/TopPerformerSection";
 
 const { Content } = Layout;
 
@@ -17,7 +17,7 @@ const HomePage = () => {
       <Content>
         <HeroSection />
         <AboutUsSection />
-        <CategorySection />
+        <TopPerformerSection />
       </Content>
       <AppFooter />
     </Layout>

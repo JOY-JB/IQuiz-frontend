@@ -8,7 +8,7 @@ import { Card, Layout, Progress, Typography } from "antd";
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 
-const CategoriesSection = () => {
+const TopPerformerSection = () => {
   const { data, isLoading } = useGetAllPerformersQuery({});
 
   if (isLoading) {
@@ -92,4 +92,4 @@ const CategoriesSection = () => {
   );
 };
 
-export default CategoriesSection;
+export default TopPerformerSection;

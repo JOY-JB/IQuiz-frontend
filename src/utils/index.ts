@@ -12,6 +12,7 @@ export const calculatePerformerStats = (
 
     return {
       id: performer.id,
+      name: performer.name,
       totalAttempts,
       totalScore,
     };

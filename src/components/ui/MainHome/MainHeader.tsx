@@ -32,17 +32,15 @@ const MainHeader = () => {
       label: <Link href={"/"}>Home</Link>,
       key: "home",
     },
-    {
-      label: <Link href={"/dashboard"}>Dashboard</Link>,
-      key: "dashboard",
-    },
+    role === "ADMIN"
+      ? {
+          label: <Link href={"/dashboard"}>Dashboard</Link>,
+          key: "dashboard",
+        }
+      : null,
     {
       label: <Link href={"/start-quiz"}>Start Quiz</Link>,
       key: "start-quiz",
-    },
-    {
-      label: <Link href={"/my-performance"}>My Performance</Link>,
-      key: "my-performance",
     },
     {
       label: <Link href={"/leaderboard"}>Leaderboard</Link>,
