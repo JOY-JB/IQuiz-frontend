@@ -28,7 +28,7 @@ const LoginPageComponent = () => {
       const res = await userLogin(data).unwrap();
 
       if (res?.accessToken) {
-        router.push("/dashboard");
+        router.push("/");
         message.success("Logged in successfully!!");
       }
 

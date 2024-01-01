@@ -1,5 +1,7 @@
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import dynamic from "next/dynamic";
+
+const HomePage = dynamic(() => import("@/components/ui/Home"), { ssr: false });
 
 export const metadata: Metadata = {
   title: "IQuiz",
@@ -7,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return redirect("/login");
+  return <HomePage />;
 }
