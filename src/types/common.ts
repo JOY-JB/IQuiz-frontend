@@ -20,3 +20,27 @@ export type IGenericErrorMessage = {
   path: string | number;
   message: string;
 };
+
+export interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  password?: string;
+  role: UserRole;
+}
+
+export interface IQuizCategory {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+  user?: IUser;
+}
+
+export enum UserRole {
+  PERFORMER = "PERFORMER",
+  ADMIN = "ADMIN",
+}
