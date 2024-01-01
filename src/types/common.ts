@@ -48,7 +48,7 @@ export interface IQuestions {
   id: string;
   text: string;
   options: string[];
-  correctOption: string[] | string;
+  correctOptions: string[];
   quizCategoryId: string;
   quizzes?: IQuizCategory;
 }

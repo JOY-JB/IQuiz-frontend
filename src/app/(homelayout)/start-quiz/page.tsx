@@ -3,12 +3,29 @@
 import CategoryCard from "@/components/ui/CategoryCard";
 import { useGetAllQuizCategoryQuery } from "@/redux/api/quizCategoryApi";
 import { IQuizCategory } from "@/types";
-import { Col, Row } from "antd";
+import { Col, Row, Spin } from "antd";
 
 const StartQuiz = () => {
   const { data, isLoading } = useGetAllQuizCategoryQuery({});
 
   const categories = data?.quizCategories;
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          height: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Spin size="large">
+          <div className="content" />
+        </Spin>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -21,7 +38,7 @@ const StartQuiz = () => {
     >
       <Row gutter={16}>
         {categories?.map((category: IQuizCategory) => (
-          <Col key={category.id} span={8}>
+          <Col key={category.id} span={6}>
             <CategoryCard {...category} />
           </Col>
         ))}

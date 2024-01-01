@@ -1,8 +1,9 @@
 import { IQuizCategory } from "@/types";
 import { PlayCircleOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { Button, Card } from "antd";
+import Link from "next/link";
 
-const CategoryCard = ({ title, description, questions }: IQuizCategory) => {
+const CategoryCard = ({ title, description, questions, id }: IQuizCategory) => {
   const numberOfQuestions = questions ? questions.length : 0;
 
   return (
@@ -44,16 +45,18 @@ const CategoryCard = ({ title, description, questions }: IQuizCategory) => {
             />
           }
           <span style={{ display: "inline-block", fontSize: "20px" }}>
-            {numberOfQuestions}
+            {numberOfQuestions > 10 ? 10 : numberOfQuestions}
           </span>
         </span>
-        <Button
-          type="primary"
-          icon={<PlayCircleOutlined />}
-          style={{ borderRadius: 8 }}
-        >
-          Start
-        </Button>
+        <Link href={`/start-quiz/${id}`}>
+          <Button
+            type="primary"
+            icon={<PlayCircleOutlined />}
+            style={{ borderRadius: 8 }}
+          >
+            Start
+          </Button>
+        </Link>
       </div>
     </Card>
   );

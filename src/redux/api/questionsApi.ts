@@ -41,7 +41,7 @@ export const questionsApi = baseApi.injectEndpoints({
         params: arg,
       }),
       transformResponse: (response: IQuestions[], meta: IMeta) => ({
-        services: response,
+        questions: response,
         meta,
       }),
       providesTags: [tagTypes.questions],

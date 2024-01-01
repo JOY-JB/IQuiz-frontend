@@ -5,4 +5,8 @@ export enum tagTypes {
   quizAttempt = "quizAttempt",
 }
 
-export const tagTypeList = [tagTypes.user];
+export const tagTypeList = [
+  tagTypes.user,
+  tagTypes.quizCategory,
+  tagTypes.questions,
+];
