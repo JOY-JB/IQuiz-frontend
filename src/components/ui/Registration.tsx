@@ -39,7 +39,7 @@ const PerformerRegistrationPageComponent = () => {
       const res = await createPerformer(newData).unwrap();
 
       if (res?.accessToken) {
-        router.push("/dashboard");
+        router.push("/");
         message.success("Registered successfully and logged in!");
       }
       storeUserInfo({ accessToken: res?.accessToken });
