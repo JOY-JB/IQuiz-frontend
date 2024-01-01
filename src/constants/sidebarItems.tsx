@@ -35,19 +35,19 @@ export const sidebarItems = (data: string) => {
       icon: <TableOutlined />,
     },
     {
-      label: <Link href={`${role}/users`}>User List</Link>,
-      key: "user-list",
+      label: <Link href={`/${role}/performers`}>Performers List</Link>,
+      key: "performers-list",
       icon: <UserOutlined />,
     },
     {
-      label: <Link href={`${role}/create`}>Create Admin</Link>,
-      key: "create-admin",
-      icon: <UserAddOutlined />,
+      label: <Link href={`/${role}/admins`}>Admins List</Link>,
+      key: "admins-list",
+      icon: <UserOutlined />,
     },
     {
-      label: <Link href={`/leaderboard`}>Leaderboard</Link>,
-      key: "leaderboard",
-      icon: <ProfileOutlined />,
+      label: <Link href={`/${role}/create`}>Create Admin</Link>,
+      key: "create-admin",
+      icon: <UserAddOutlined />,
     },
   ];
 
