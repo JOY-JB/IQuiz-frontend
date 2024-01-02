@@ -12,7 +12,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "POST",
         data: data,
       }),
-      invalidatesTags: [tagTypes.user],
+      invalidatesTags: [tagTypes.user, tagTypes.quizAttempt],
     }),
 
     createAdmin: build.mutation({
@@ -21,7 +21,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "POST",
         data: data,
       }),
-      invalidatesTags: [tagTypes.user],
+      invalidatesTags: [tagTypes.user, tagTypes.quizAttempt],
     }),
 
     getAllAdmins: build.query({
@@ -34,7 +34,7 @@ export const userApi = baseApi.injectEndpoints({
         admins: response,
         meta,
       }),
-      providesTags: [tagTypes.user],
+      providesTags: [tagTypes.user, tagTypes.quizAttempt],
     }),
 
     getAllPerformers: build.query({
@@ -47,7 +47,19 @@ export const userApi = baseApi.injectEndpoints({
         performers: response,
         meta,
       }),
-      providesTags: [tagTypes.user],
+      providesTags: [tagTypes.user, tagTypes.quizAttempt],
+    }),
+    getAllUsers: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: `${USER_URL}/`,
+        method: "GET",
+        params: arg,
+      }),
+      transformResponse: (response: IUser[], meta: IMeta) => ({
+        users: response,
+        meta,
+      }),
+      providesTags: [tagTypes.user, tagTypes.quizAttempt],
     }),
   }),
 });
@@ -57,4 +69,5 @@ export const {
   useCreatePerformerMutation,
   useGetAllAdminsQuery,
   useGetAllPerformersQuery,
+  useGetAllUsersQuery,
 } = userApi;

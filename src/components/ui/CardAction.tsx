@@ -1,6 +1,6 @@
-import { Button, Tooltip } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import { ButtonType } from 'antd/es/button';
+import { PlusOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+import { ButtonType } from "antd/es/button";
 
 type CardActionProps = {
   title?: string;
@@ -12,21 +12,23 @@ type CardActionProps = {
 
 const CardAction = ({
   title,
-  type = 'primary',
+  type = "primary",
   onClick,
   icon,
 }: CardActionProps) => {
   return (
-    <Tooltip title={title || 'Reference'} placement="left">
-      <Button
-        ghost
-        size="small"
-        type={type}
-        shape="circle"
-        icon={icon ? icon : <PlusOutlined />}
-        onClick={onClick}
-      />
-    </Tooltip>
+    // <Tooltip title={title || "Reference"} placement="left">
+    <Button
+      ghost
+      size="middle"
+      type={type}
+      shape="round"
+      icon={icon ? icon : <PlusOutlined />}
+      onClick={onClick}
+    >
+      {title}
+    </Button>
+    // </Tooltip>
   );
 };
 

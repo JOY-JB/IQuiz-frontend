@@ -1,10 +1,10 @@
 import {
+  DashboardOutlined,
   FileProtectOutlined,
   HomeOutlined,
   ProfileOutlined,
   TableOutlined,
   UnorderedListOutlined,
-  UserAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { MenuProps } from "antd";
@@ -25,6 +25,11 @@ export const sidebarItems = (data: string) => {
   const adminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
+      label: <Link href={`/${role}/dashboard`}>Dashboard</Link>,
+      key: "dashboard",
+      icon: <DashboardOutlined />,
+    },
+    {
       label: <Link href={`/${role}/quizzes`}>Quizzes</Link>,
       key: "quizzes",
       icon: <TableOutlined />,
@@ -43,11 +48,6 @@ export const sidebarItems = (data: string) => {
       label: <Link href={`/${role}/admins`}>Admins List</Link>,
       key: "admins-list",
       icon: <UserOutlined />,
-    },
-    {
-      label: <Link href={`/${role}/create`}>Create Admin</Link>,
-      key: "create-admin",
-      icon: <UserAddOutlined />,
     },
   ];
 

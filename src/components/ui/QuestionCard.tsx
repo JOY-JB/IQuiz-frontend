@@ -11,9 +11,11 @@ const { Title } = Typography;
 const QuizComponent = ({
   questions,
   isLoading,
+  categoryId,
 }: {
   questions: IQuestions[];
   isLoading: boolean;
+  categoryId: string;
 }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [chosenAnswers, setChosenAnswers] = useState<string[]>([]);
@@ -55,6 +57,10 @@ const QuizComponent = ({
     });
   };
 
+  const areArraysEqual = (arr1: string[], arr2: string[]) => {
+    return arr1.every((value) => arr2.includes(value));
+  };
+
   const handleNext = () => {
     const currentQuestion = questions[currentQuestionIndex];
     const isCorrect = areArraysEqual(
@@ -69,12 +75,6 @@ const QuizComponent = ({
     setCurrentQuestionIndex((prev) => prev + 1);
   };
 
-  const areArraysEqual = (arr1: string[], arr2: string[]) => {
-    return (
-      arr1.length === arr2.length && arr1.every((value) => arr2.includes(value))
-    );
-  };
-
   const currentQuestion = questions[currentQuestionIndex];
 
   if (!currentQuestion && !isLoading) {
@@ -82,6 +82,7 @@ const QuizComponent = ({
       <QuizResult
         correctAnswers={correctAnswersCount}
         totalQuestions={questions.length}
+        categoryId={categoryId}
       />
     );
   } else if (!currentQuestion && isLoading) {

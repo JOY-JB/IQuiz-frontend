@@ -66,13 +66,18 @@ const LoginPageComponent = () => {
           Login here
         </h1>
         <div>
-          <Form submitHandler={onSubmit} resolver={yupResolver(loginSchema)}>
+          <Form
+            submitHandler={onSubmit}
+            resolver={yupResolver(loginSchema)}
+            // defaultValues={{ email: "admin@admin.com", password: "123456" }}
+          >
             <div>
               <FormInput
                 name="email"
                 label="User Email"
                 type="text"
                 size="large"
+                placeholder="admin@admin.com"
               />
             </div>
             <div
@@ -85,6 +90,7 @@ const LoginPageComponent = () => {
                 label="Password"
                 type="password"
                 size="large"
+                placeholder="123456"
               />
             </div>
             <Button type="primary" htmlType="submit">

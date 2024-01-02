@@ -21,7 +21,11 @@ const PlayingQuiz = ({ params }: IProps) => {
 
   return (
     <div>
-      <QuestionCard questions={questions} isLoading={isLoading} />
+      <QuestionCard
+        questions={questions}
+        isLoading={isLoading}
+        categoryId={id}
+      />
     </div>
   );
 };

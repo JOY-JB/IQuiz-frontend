@@ -1,15 +1,43 @@
+import { useSubmitAttemptMutation } from "@/redux/api/quizAttemptApi";
 import { Card, Result, Typography } from "antd";
+import { useEffect } from "react";
 
 const { Text, Title, Paragraph } = Typography;
 
 const QuizResult = ({
   totalQuestions,
   correctAnswers,
+  categoryId,
 }: {
   totalQuestions: number;
   correctAnswers: number;
+  categoryId: string;
 }) => {
   const percentage = (correctAnswers / totalQuestions) * 100;
+
+  const [submitAttempt] = useSubmitAttemptMutation();
+
+  useEffect(() => {
+    const now = new Date();
+
+    const formattedDate = now.toISOString();
+    const data = {
+      quizCategoryId: categoryId,
+      score: correctAnswers,
+      startedAt: formattedDate,
+      completedAt: formattedDate,
+    };
+
+    const fetchData = async () => {
+      try {
+        const res = await submitAttempt({ ...data }).unwrap();
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div

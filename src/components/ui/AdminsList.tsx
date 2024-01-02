@@ -3,6 +3,8 @@
 import QuizTable from "@/components/table/QuizTable";
 import { useGetAllAdminsQuery } from "@/redux/api/userApi";
 import { useState } from "react";
+import AdminCreate from "./AdminCreate";
+import CardAction from "./CardAction";
 import MainCard from "./MainCard";
 
 const AdminList = () => {
@@ -13,6 +15,7 @@ const AdminList = () => {
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
 
   query["limit"] = size;
   query["page"] = page;
@@ -54,7 +57,12 @@ const AdminList = () => {
   ];
 
   return (
-    <MainCard title="Admin list">
+    <MainCard
+      title="Admin list"
+      extra={<CardAction title="Create Admin" onClick={() => setOpen(true)} />}
+    >
+      <AdminCreate open={open} handleClose={() => setOpen(false)} />
+
       <QuizTable
         rowKey="id"
         loading={isLoading}

@@ -1,17 +1,17 @@
 "use client";
 import QuizTable from "@/components/table/QuizTable";
-import { useGetAllPerformersQuery } from "@/redux/api/userApi";
+import { useGetAllUsersQuery } from "@/redux/api/userApi";
 import { calculatePerformerStats } from "@/utils";
 import { Typography } from "antd";
 
 const { Title } = Typography;
 
 const LeaderboardPage = () => {
-  const { data, isLoading } = useGetAllPerformersQuery({});
+  const { data, isLoading } = useGetAllUsersQuery({});
 
-  const performersData = data?.performers || [];
+  const usersData = data?.users || [];
 
-  const newPerformersData = calculatePerformerStats(performersData);
+  const newPerformersData = calculatePerformerStats(usersData);
 
   const sortedPerformers = newPerformersData?.sort(
     (a, b) => b.totalScore - a.totalScore

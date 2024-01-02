@@ -9,4 +9,5 @@ export const tagTypeList = [
   tagTypes.user,
   tagTypes.quizCategory,
   tagTypes.questions,
+  tagTypes.quizAttempt,
 ];

@@ -22,8 +22,8 @@ export const calculatePerformerStats = (
 export const calculateSinglePerformerStats = (
   performer: IUser
 ): Partial<IPerformerStats> => {
-  const totalAttempts = performer.quizAttempts.length;
-  const totalScore = performer.quizAttempts.reduce(
+  const totalAttempts = performer.quizAttempts?.length;
+  const totalScore = performer.quizAttempts?.reduce(
     (sum, attempt) => sum + attempt.score,
     0
   );

@@ -1,7 +1,7 @@
 "uce client";
 
 import Loading from "@/app/loading";
-import { useGetAllPerformersQuery } from "@/redux/api/userApi";
+import { useGetAllUsersQuery } from "@/redux/api/userApi";
 import { calculateSinglePerformerStats } from "@/utils";
 import { Card, Layout, Progress, Typography } from "antd";
 
@@ -9,12 +9,12 @@ const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 
 const TopPerformerSection = () => {
-  const { data, isLoading } = useGetAllPerformersQuery({});
+  const { data, isLoading } = useGetAllUsersQuery({});
 
   if (isLoading) {
     return <Loading />;
   }
-  const performersData = data?.performers;
+  const performersData = data?.users;
   const sortedPerformers = performersData?.slice().sort((a, b) => {
     const scoreA = calculateSinglePerformerStats(a)?.totalScore || 0;
     const scoreB = calculateSinglePerformerStats(b)?.totalScore || 0;
